@@ -1,0 +1,45 @@
+{
+  "name": "@cs325/environment",
+  "description": "JavaScript and Lisp environment for CS 325 at Northwestern.",
+  "version": "0.1.0",
+  "author": "Joshua Hoeflich",
+  "main": "cli/index.js",
+  "devDependencies": {
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.6",
+    "husky": "^4.2.5",
+    "jest": "^26.4.2",
+    "lint-staged": "^10.2.11",
+    "prettier": "2.0.5"
+  },
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && jest"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.md": [
+      "prettier --write"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joshuahoeflich/cs325-environment"
+  },
+  "bugs": {
+    "url": "https://github.com/joshuahoeflich/cs325-environment/issues"
+  }
+}
