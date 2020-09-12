@@ -7,9 +7,14 @@ const simpleGit = require("simple-git");
 const { setup, QUICKLISP_SETUP } = require("./setup");
 const { PACKAGE_ROOT } = require("./utils");
 
-jest.mock("fs");
 jest.mock("child_process");
 const consoleLog = jest.spyOn(console, "log").mockImplementation();
+
+fs.unlinkSync = jest.fn();
+fs.writeFileSync = jest.fn();
+fs.existsSync = jest.fn();
+fs.promises.writeFile = jest.fn();
+fs.promises.unlink = jest.fn();
 
 describe("setup", () => {
   test("Clones the CS395 code", async () => {
