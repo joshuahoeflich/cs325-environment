@@ -1,9 +1,15 @@
 const { Command } = require("commander");
+const quicklispSetup = require("./setup");
 
 const createProgram = (programConfig) => {
   const program = new Command();
   const { setup } = programConfig;
-  program.command("setup").action(setup);
+  program
+    .name("ai")
+    .version("0.0.0")
+    .command("setup")
+    .description("Installs Quicklisp and the CS 325 library.")
+    .action(setup);
   return program;
 };
 
@@ -14,12 +20,13 @@ process.on("unhandledRejection", (fatalError) => {
 });
 
 const PROGRAM_CONFIG = {
-  setup: async () => {},
+  setup: quicklispSetup,
 };
 
 const main = async () => {
   const program = createProgram(PROGRAM_CONFIG);
   await program.parseAsync(process.argv);
+  console.log("I RAN");
 };
 
 if (require.main === module) {
