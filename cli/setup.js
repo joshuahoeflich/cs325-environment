@@ -1,6 +1,7 @@
 const fs = require("fs");
 const childProcess = require("child_process");
 const path = require("path");
+const chalk = require("chalk");
 const axios = require("axios");
 const { PACKAGE_ROOT } = require("./utils");
 
@@ -14,6 +15,11 @@ const QUICKLISP_SETUP = `
 `;
 
 const setup = async () => {
+  if (fs.existsSync(path.join(PACKAGE_ROOT, "quicklisp"))) {
+    // eslint-disable-next-line no-console
+    console.log(chalk.bold.blue("Setup has already been completed, skipping."));
+    return;
+  }
   const { data } = await axios.get("https://beta.quicklisp.org/quicklisp.lisp");
   fs.writeFileSync(
     path.resolve(PACKAGE_ROOT, "setup.lisp"),
