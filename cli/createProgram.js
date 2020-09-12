@@ -20,7 +20,7 @@ const createProgram = (programConfig = DEFAULT_PROGRAM_CONFIG) => {
     .action(setup);
   program
     .command("clean")
-    .description("Cleans all installed lisp files")
+    .description("Removes Quicklisp and the CS 325 library.")
     .action(clean);
   return program;
 };
