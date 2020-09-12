@@ -11,6 +11,9 @@ jest.mock("child_process");
 const consoleLog = jest.spyOn(console, "log").mockImplementation();
 
 describe("setup", () => {
+  test("Clones the CS395 code", () => {
+    throw new Error('IMPLEMENT ME!');
+  });
   test("Does not run if there exists an existing Quicklisp installation", async () => {
     fs.existsSync.mockImplementationOnce(() => true);
     await setup();
