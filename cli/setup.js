@@ -2,6 +2,8 @@ const fs = require("fs").promises;
 const path = require("path");
 const axios = require("axios");
 const Git = require("simple-git");
+const ora = require("ora");
+const chalk = require("chalk");
 const { exec, existsAsync, PACKAGE_ROOT } = require("./utils");
 
 const git = new Git();
@@ -41,11 +43,21 @@ const configureQuicklisp = async () => {
   await fs.unlink(path.resolve(PACKAGE_ROOT, "setup.lisp"));
 };
 
-const setup = async () => {
+const setupLogic = async () => {
   const fileExists = await existsAsync(path.join(PACKAGE_ROOT, "quicklisp"));
   if (fileExists) return;
   await cloneCourseCode();
   await configureQuicklisp();
 };
 
-module.exports = { setup, QUICKLISP_SETUP };
+const setup = async () => {
+  const spinner = ora("Beginning setup...").start();
+  try {
+    await setupLogic();
+    spinner.succeed(chalk.bold.green("Set up successful."));
+  } catch (err) {
+    spinner.fail(chalk.bold.red("ERROR: ", err));
+  }
+};
+
+module.exports = { setup, setupLogic, QUICKLISP_SETUP };

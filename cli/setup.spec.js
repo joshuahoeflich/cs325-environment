@@ -2,7 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const axios = require("axios");
 const simpleGit = require("simple-git");
-const { setup, QUICKLISP_SETUP } = require("./setup");
+const { setupLogic: setup, QUICKLISP_SETUP } = require("./setup");
 const { exec, PACKAGE_ROOT } = require("./utils");
 
 jest.mock("fs");
