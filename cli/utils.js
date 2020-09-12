@@ -1,5 +1,7 @@
 const path = require("path");
 const fs = require("fs").promises;
+const util = require("util");
+const exec = util.promisify(require("child_process").exec);
 
 const PACKAGE_ROOT = path.resolve(__dirname, "..");
 
@@ -15,4 +17,5 @@ const existsAsync = async (filePath) => {
 module.exports = {
   PACKAGE_ROOT,
   existsAsync,
+  exec,
 };

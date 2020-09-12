@@ -1,9 +1,8 @@
 const fs = require("fs").promises;
-const childProcess = require("child_process");
 const path = require("path");
 const axios = require("axios");
 const Git = require("simple-git");
-const { existsAsync, PACKAGE_ROOT } = require("./utils");
+const { exec, existsAsync, PACKAGE_ROOT } = require("./utils");
 
 const git = new Git();
 
@@ -29,7 +28,7 @@ const configureQuicklisp = async () => {
     path.resolve(PACKAGE_ROOT, "setup.lisp"),
     `${data}\n${QUICKLISP_SETUP}`
   );
-  childProcess.spawnSync(
+  await exec(
     "sbcl",
     [
       "--no-userinit",

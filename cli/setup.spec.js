@@ -1,13 +1,13 @@
 const path = require("path");
 const fs = require("fs");
-const childProcess = require("child_process");
 const axios = require("axios");
 const simpleGit = require("simple-git");
 const { setup, QUICKLISP_SETUP } = require("./setup");
-const { PACKAGE_ROOT } = require("./utils");
+const { exec, PACKAGE_ROOT } = require("./utils");
 
 jest.mock("fs");
 jest.mock("child_process");
+jest.mock("util");
 
 describe("setup", () => {
   test("Does not run if there exists an existing Quicklisp installation", async () => {
@@ -49,7 +49,7 @@ describe("setup", () => {
       throw new Error("FILE DOES NOT EXIST");
     });
     await setup();
-    expect(childProcess.spawnSync).toHaveBeenCalledWith(
+    expect(exec).toHaveBeenCalledWith(
       "sbcl",
       [
         "--no-userinit",
