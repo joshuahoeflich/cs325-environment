@@ -1,5 +1,5 @@
 const { Command } = require("commander");
-const quicklispSetup = require("./setup");
+const { setup: quicklispSetup } = require("./setup");
 
 const createProgram = (programConfig) => {
   const program = new Command();
@@ -26,7 +26,6 @@ const PROGRAM_CONFIG = {
 const main = async () => {
   const program = createProgram(PROGRAM_CONFIG);
   await program.parseAsync(process.argv);
-  console.log("I RAN");
 };
 
 if (require.main === module) {

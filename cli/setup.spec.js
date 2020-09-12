@@ -2,7 +2,7 @@ const path = require("path");
 const axios = require("axios");
 const fs = require("fs");
 const childProcess = require("child_process");
-const setup = require("./setup");
+const { setup, QUICKLISP_SETUP } = require("./setup");
 const { PACKAGE_ROOT } = require("./utils");
 
 jest.mock("fs");
@@ -20,10 +20,7 @@ describe("setup", () => {
     const { data } = await axios.get();
     expect(fs.writeFileSync).toHaveBeenCalledWith(
       path.resolve(PACKAGE_ROOT, "setup.lisp"),
-      `${data}\n(quicklisp-quickstart:install :path ${path.resolve(
-        PACKAGE_ROOT,
-        "quicklisp"
-      )})`
+      `${data}\n${QUICKLISP_SETUP}`
     );
   });
   test("Runs the quicklisp installer", async () => {
@@ -31,7 +28,9 @@ describe("setup", () => {
     expect(childProcess.spawnSync).toHaveBeenCalledWith(
       "sbcl",
       [
-        "--no-userinitPACKAGE_ROOT--non-interactive",
+        "--no-userinit",
+        "--non-interactive",
+        "--load",
         path.resolve(PACKAGE_ROOT, "setup.lisp"),
       ],
       { stdio: "inherit" }
