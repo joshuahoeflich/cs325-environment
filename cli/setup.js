@@ -30,16 +30,12 @@ const configureQuicklisp = async () => {
     path.resolve(PACKAGE_ROOT, "setup.lisp"),
     `${data}\n${QUICKLISP_SETUP}`
   );
-  await exec(
-    "sbcl",
-    [
-      "--no-userinit",
-      "--non-interactive",
-      "--load",
-      path.resolve(PACKAGE_ROOT, "setup.lisp"),
-    ],
-    { stdio: "inherit" }
-  );
+  await exec("sbcl", [
+    "--no-userinit",
+    "--non-interactive",
+    "--load",
+    path.resolve(PACKAGE_ROOT, "setup.lisp"),
+  ]);
   await fs.unlink(path.resolve(PACKAGE_ROOT, "setup.lisp"));
 };
 

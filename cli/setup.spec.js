@@ -49,16 +49,12 @@ describe("setup", () => {
       throw new Error("FILE DOES NOT EXIST");
     });
     await setup();
-    expect(exec).toHaveBeenCalledWith(
-      "sbcl",
-      [
-        "--no-userinit",
-        "--non-interactive",
-        "--load",
-        path.resolve(PACKAGE_ROOT, "setup.lisp"),
-      ],
-      { stdio: "inherit" }
-    );
+    expect(exec).toHaveBeenCalledWith("sbcl", [
+      "--no-userinit",
+      "--non-interactive",
+      "--load",
+      path.resolve(PACKAGE_ROOT, "setup.lisp"),
+    ]);
   });
   test("Deletes the quicklisp installer", async () => {
     fs.promises.access.mockImplementationOnce(() => {
