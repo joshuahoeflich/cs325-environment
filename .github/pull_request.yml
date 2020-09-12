@@ -1,0 +1,25 @@
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test_build:
+    name: "Build and Test the Project"
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup nix
+      uses: cachix/install-nix-action@v10
+      with:
+        nix_path: nixpkgs=channel:nixos-20.03
+    - name: Install Dependencies
+      id: deps
+      run: nix-shell --run "npm ci"
+    - name: Test Project
+      id: tests
+      run: nix-shell --run "npm test"
+    - name: Run Setup
+      id: setup
+      run: nix-shell --run "ai setup"
