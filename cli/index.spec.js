@@ -1,7 +1,12 @@
-const sum = require(".");
+const createProgram = require(".");
 
-describe("Adding two numbers", () => {
-  test("Performs summation correctly", () => {
-    expect(sum(7, 3)).toEqual(10);
+describe("Calling cli setup", () => {
+  test("Runs the provided setup function", async () => {
+    const mockSetup = jest.fn();
+    const program = createProgram({
+      setup: mockSetup,
+    });
+    await program.parseAsync(["", "", "setup"]);
+    expect(mockSetup).toHaveBeenCalled();
   });
 });
