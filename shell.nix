@@ -9,9 +9,11 @@ pkgs.mkShell {
   CS325_LISP_REPO = "https://gitlab.com/criesbeck/cs325.git";
   QUICKLISP_URL = "https://beta.quicklisp.org/quicklisp.lisp";
   shellHook = ''
+    export SBCL_PATH="$(command -v sbcl)"
+    export PATH="$PWD"/cli/bin:"$PATH"
     if [ ! -d "$PWD"/node_modules ]; then
       npm install
+      ai setup
     fi
-    export SBCL_PATH="$(command -v sbcl)"
   '';
 }

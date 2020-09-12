@@ -3,7 +3,7 @@
   "description": "JavaScript and Lisp environment for CS 325 at Northwestern.",
   "version": "0.1.0",
   "author": "Joshua Hoeflich",
-  "main": "cli/index.js",
+  "main": "cli/ai",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch"
@@ -34,6 +34,7 @@
     "axios": "^0.20.0",
     "chalk": "^4.1.0",
     "commander": "^6.1.0",
+    "ora": "^5.1.0",
     "simple-git": "^2.20.1"
   },
   "devDependencies": {
