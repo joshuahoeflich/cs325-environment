@@ -1,10 +1,9 @@
-const fs = require("fs");
+const fs = require("fs").promises;
 const childProcess = require("child_process");
 const path = require("path");
-const chalk = require("chalk");
 const axios = require("axios");
 const Git = require("simple-git");
-const { PACKAGE_ROOT } = require("./utils");
+const { existsAsync, PACKAGE_ROOT } = require("./utils");
 
 const git = new Git();
 
@@ -26,7 +25,7 @@ const cloneCourseCode = async () => {
 
 const configureQuicklisp = async () => {
   const { data } = await axios.get(process.env.QUICKLISP_URL);
-  fs.writeFileSync(
+  await fs.writeFile(
     path.resolve(PACKAGE_ROOT, "setup.lisp"),
     `${data}\n${QUICKLISP_SETUP}`
   );
@@ -40,15 +39,12 @@ const configureQuicklisp = async () => {
     ],
     { stdio: "inherit" }
   );
-  fs.unlinkSync(path.resolve(PACKAGE_ROOT, "setup.lisp"));
+  await fs.unlink(path.resolve(PACKAGE_ROOT, "setup.lisp"));
 };
 
 const setup = async () => {
-  if (fs.existsSync(path.join(PACKAGE_ROOT, "quicklisp"))) {
-    // eslint-disable-next-line no-console
-    console.log(chalk.bold.blue("Setup has already been completed, skipping."));
-    return;
-  }
+  const fileExists = await existsAsync(path.join(PACKAGE_ROOT, "quicklisp"));
+  if (fileExists) return;
   await cloneCourseCode();
   await configureQuicklisp();
 };
