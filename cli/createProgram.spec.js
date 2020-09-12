@@ -1,4 +1,4 @@
-const createProgram = require(".");
+const createProgram = require("./createProgram");
 
 describe("Calling cli setup", () => {
   test("Runs the provided setup function", async () => {

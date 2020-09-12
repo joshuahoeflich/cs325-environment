@@ -3,7 +3,11 @@
 const { Command } = require("commander");
 const { setup: quicklispSetup } = require("./setup");
 
-const createProgram = (programConfig) => {
+const DEFAULT_PROGRAM_CONFIG = {
+  setup: quicklispSetup,
+};
+
+const createProgram = (programConfig = DEFAULT_PROGRAM_CONFIG) => {
   const program = new Command();
   const { setup } = programConfig;
   program
@@ -16,20 +20,3 @@ const createProgram = (programConfig) => {
 };
 
 module.exports = createProgram;
-
-process.on("unhandledRejection", (fatalError) => {
-  throw fatalError;
-});
-
-const PROGRAM_CONFIG = {
-  setup: quicklispSetup,
-};
-
-const main = async () => {
-  const program = createProgram(PROGRAM_CONFIG);
-  await program.parseAsync(process.argv);
-};
-
-if (require.main === module) {
-  main();
-}

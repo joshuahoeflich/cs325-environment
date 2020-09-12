@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+const createProgram = require('../createProgram');
+
+process.on("unhandledRejection", (fatalError) => {
+  throw fatalError;
+});
+
+const main = async () => {
+  const program = createProgram();
+  await program.parseAsync(process.argv);
+};
+
+if (require.main === module) {
+  main();
+}
