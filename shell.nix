@@ -8,6 +8,7 @@ pkgs.mkShell {
     emacs26-nox
   ];
   CS325_LISP_REPO = "https://gitlab.com/criesbeck/cs325.git";
+  CS325_JS_REPO = "https://gitlab.com/criesbeck/cs325-js.git";
   QUICKLISP_URL = "https://beta.quicklisp.org/quicklisp.lisp";
   shellHook = ''
     export SBCL_PATH="$(command -v sbcl)"
