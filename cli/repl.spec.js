@@ -8,9 +8,10 @@ jest.mock("child_process");
 describe("ai Repl command", () => {
   test("Runs sbcl with the appropriate config file", async () => {
     await repl();
-    expect(childProcess.spawnSync).toHaveBeenCalledWith("sbcl", [
-      "--userinit",
-      path.join(PACKAGE_ROOT, "quicklisp", "sbclrc"),
-    ]);
+    expect(childProcess.spawnSync).toHaveBeenCalledWith(
+      "sbcl",
+      ["--userinit", path.join(PACKAGE_ROOT, "quicklisp", "sbclrc")],
+      { stdio: "inherit" }
+    );
   });
 });

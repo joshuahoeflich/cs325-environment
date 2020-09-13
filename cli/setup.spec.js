@@ -7,6 +7,7 @@ const {
   setupWhenNeeded,
   setupLogic: setup,
   QUICKLISP_SETUP,
+  SBCLRC,
 } = require("./setup");
 const { exec, PACKAGE_ROOT } = require("./utils");
 
@@ -60,6 +61,16 @@ describe("setup", () => {
       "--load",
       path.resolve(PACKAGE_ROOT, "setup.lisp"),
     ]);
+  });
+  test("Creates an sbclrc file in the right place", async () => {
+    fs.promises.access.mockImplementationOnce(() => {
+      throw new Error("FILE DOES NOT EXIST");
+    });
+    await setup();
+    expect(fs.promises.writeFile).toHaveBeenCalledWith(
+      path.resolve(PACKAGE_ROOT, "quicklisp", "sbclrc"),
+      SBCLRC
+    );
   });
   test("Deletes the quicklisp installer", async () => {
     fs.promises.access.mockImplementationOnce(() => {

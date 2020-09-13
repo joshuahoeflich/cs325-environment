@@ -5,10 +5,11 @@ const { setupWhenNeeded } = require("./setup");
 
 const repl = async () => {
   await setupWhenNeeded();
-  childProcess.spawnSync("sbcl", [
-    "--userinit",
-    path.join(PACKAGE_ROOT, "quicklisp", "sbclrc"),
-  ]);
+  childProcess.spawnSync(
+    "sbcl",
+    ["--userinit", path.join(PACKAGE_ROOT, "quicklisp", "sbclrc")],
+    { stdio: "inherit" }
+  );
 };
 
 module.exports = { repl };

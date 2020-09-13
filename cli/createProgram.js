@@ -3,15 +3,17 @@
 const { Command } = require("commander");
 const { setup: quicklispSetup } = require("./setup");
 const { clean: cleanSetup } = require("./clean");
+const { repl: aiRepl } = require("./repl");
 
 const DEFAULT_PROGRAM_CONFIG = {
   setup: quicklispSetup,
   clean: cleanSetup,
+  repl: aiRepl,
 };
 
 const createProgram = (programConfig = DEFAULT_PROGRAM_CONFIG) => {
   const program = new Command();
-  const { setup, clean } = programConfig;
+  const { setup, clean, repl } = programConfig;
   program
     .name("ai")
     .version("0.0.0")
@@ -22,6 +24,10 @@ const createProgram = (programConfig = DEFAULT_PROGRAM_CONFIG) => {
     .command("clean")
     .description("Removes Quicklisp and the CS 325 library.")
     .action(clean);
+  program
+    .command("repl")
+    .description("Run a repl with the CS 325 libraries loaded.")
+    .action(repl);
   return program;
 };
 

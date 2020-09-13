@@ -19,4 +19,16 @@ describe("Calling cli setup", () => {
     await program.parseAsync(["", "", "clean"]);
     expect(mockClean).toHaveBeenCalled();
   });
+  test("Runs the provided repl function", async () => {
+    const mockSetup = jest.fn();
+    const mockClean = jest.fn();
+    const mockRepl = jest.fn();
+    const program = createProgram({
+      setup: mockSetup,
+      clean: mockClean,
+      repl: mockRepl,
+    });
+    await program.parseAsync(["", "", "repl"]);
+    expect(mockRepl).toHaveBeenCalled();
+  });
 });

@@ -17,6 +17,21 @@ const QUICKLISP_SETUP = `
 (ql:register-local-projects)
 `;
 
+const SBCLRC = `
+#-quicklisp
+(let ((quicklisp-init #P"${path.resolve(
+  PACKAGE_ROOT,
+  "quicklisp",
+  "setup.lisp"
+)}"))
+  (when (probe-file quicklisp-init)
+    (load quicklisp-init)))
+
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (ql:quickload "cs325")
+  (setq *package* (find-package :cs325-user)))
+`;
+
 const cloneCourseCode = async () => {
   await git.clone(
     process.env.CS325_LISP_REPO,
@@ -26,10 +41,13 @@ const cloneCourseCode = async () => {
 
 const configureQuicklisp = async () => {
   const { data } = await axios.get(process.env.QUICKLISP_URL);
-  await fs.writeFile(
-    path.resolve(PACKAGE_ROOT, "setup.lisp"),
-    `${data}\n${QUICKLISP_SETUP}`
-  );
+  await Promise.all([
+    fs.writeFile(
+      path.resolve(PACKAGE_ROOT, "setup.lisp"),
+      `${data}\n${QUICKLISP_SETUP}`
+    ),
+    fs.writeFile(path.resolve(PACKAGE_ROOT, "quicklisp", "sbclrc"), SBCLRC),
+  ]);
   await exec("sbcl", [
     "--no-userinit",
     "--non-interactive",
@@ -64,4 +82,10 @@ const setupWhenNeeded = async () => {
   await setup();
 };
 
-module.exports = { setupWhenNeeded, setup, setupLogic, QUICKLISP_SETUP };
+module.exports = {
+  setupWhenNeeded,
+  setup,
+  setupLogic,
+  QUICKLISP_SETUP,
+  SBCLRC,
+};
