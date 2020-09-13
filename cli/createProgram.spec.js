@@ -58,9 +58,9 @@ describe("Calling cli setup", () => {
       js: mockJs,
       critic: mockCritic,
     });
-    await program.parseAsync(["", "", "critic", "test"]);
+    await program.parseAsync(["", "", "critic", "potato"]);
     const firstCall = mockCritic.mock.calls[0];
-    expect(firstCall[0]).toEqual("test");
+    expect(firstCall[0]).toEqual("potato");
     expect(firstCall[1].watch).toBe(false);
   });
   test("Passes the right arguments to the critic function", async () => {
@@ -76,12 +76,12 @@ describe("Calling cli setup", () => {
       js: mockJs,
       critic: mockCritic,
     });
-    await program.parseAsync(["", "", "critic", "test", "--watch"]);
+    await program.parseAsync(["", "", "critic", "potato"]);
     const firstCall = mockCritic.mock.calls[0];
-    expect(firstCall[0]).toEqual("test");
-    expect(firstCall[1].watch).toBe(true);
+    expect(firstCall[0]).toEqual("potato");
+    expect(firstCall[1].watch).toBe(false);
   });
-  test("Aliases watch correctly", async () => {
+  test("Aliases watch correctly for the critic", async () => {
     const mockSetup = jest.fn();
     const mockClean = jest.fn();
     const mockRepl = jest.fn();
@@ -94,9 +94,49 @@ describe("Calling cli setup", () => {
       js: mockJs,
       critic: mockCritic,
     });
-    await program.parseAsync(["", "", "critic", "test", "-w"]);
+    await program.parseAsync(["", "", "critic", "potato", "-w"]);
     const firstCall = mockCritic.mock.calls[0];
-    expect(firstCall[0]).toEqual("test");
+    expect(firstCall[0]).toEqual("potato");
+    expect(firstCall[1].watch).toBe(true);
+  });
+  test("Passes the right arguments to the test function", async () => {
+    const mockSetup = jest.fn();
+    const mockClean = jest.fn();
+    const mockRepl = jest.fn();
+    const mockJs = jest.fn();
+    const mockCritic = jest.fn();
+    const mockTest = jest.fn();
+    const program = createProgram({
+      setup: mockSetup,
+      clean: mockClean,
+      repl: mockRepl,
+      js: mockJs,
+      critic: mockCritic,
+      test: mockTest,
+    });
+    await program.parseAsync(["", "", "test", "potato"]);
+    const firstCall = mockTest.mock.calls[0];
+    expect(firstCall[0]).toEqual("potato");
+    expect(firstCall[1].watch).toBe(false);
+  });
+  test("Tests watch correctly", async () => {
+    const mockSetup = jest.fn();
+    const mockClean = jest.fn();
+    const mockRepl = jest.fn();
+    const mockJs = jest.fn();
+    const mockCritic = jest.fn();
+    const mockTest = jest.fn();
+    const program = createProgram({
+      setup: mockSetup,
+      clean: mockClean,
+      repl: mockRepl,
+      js: mockJs,
+      critic: mockCritic,
+      test: mockTest,
+    });
+    await program.parseAsync(["", "", "test", "potato", "--watch"]);
+    const firstCall = mockTest.mock.calls[0];
+    expect(firstCall[0]).toEqual("potato");
     expect(firstCall[1].watch).toBe(true);
   });
 });

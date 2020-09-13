@@ -6,6 +6,7 @@ const { clean: cleanSetup } = require("./clean");
 const { repl: aiRepl } = require("./repl");
 const { js: aiJs } = require("./js");
 const { critic: aiCritic } = require("./critic");
+const { unitTest } = require("./unitTest");
 
 const DEFAULT_PROGRAM_CONFIG = {
   setup: quicklispSetup,
@@ -13,11 +14,12 @@ const DEFAULT_PROGRAM_CONFIG = {
   repl: aiRepl,
   js: aiJs,
   critic: aiCritic,
+  test: unitTest,
 };
 
 const createProgram = (programConfig = DEFAULT_PROGRAM_CONFIG) => {
   const program = new Command();
-  const { setup, clean, repl, js, critic } = programConfig;
+  const { setup, clean, repl, js, critic, test } = programConfig;
   program
     .name("ai")
     .version("0.0.0")
@@ -41,6 +43,11 @@ const createProgram = (programConfig = DEFAULT_PROGRAM_CONFIG) => {
     .description("Run the code critic over the provided file.")
     .option("-w, --watch", "Watch for changes.", false)
     .action(critic);
+  program
+    .command("test <file>")
+    .description("Unit test the exercise in the provided file.")
+    .option("-w, --watch", "Watch for changes.", false)
+    .action(test);
   return program;
 };
 
