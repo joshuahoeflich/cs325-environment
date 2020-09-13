@@ -4,16 +4,18 @@ const { Command } = require("commander");
 const { setup: quicklispSetup } = require("./setup");
 const { clean: cleanSetup } = require("./clean");
 const { repl: aiRepl } = require("./repl");
+const { js: aiJs } = require("./js");
 
 const DEFAULT_PROGRAM_CONFIG = {
   setup: quicklispSetup,
   clean: cleanSetup,
   repl: aiRepl,
+  js: aiJs,
 };
 
 const createProgram = (programConfig = DEFAULT_PROGRAM_CONFIG) => {
   const program = new Command();
-  const { setup, clean, repl } = programConfig;
+  const { setup, clean, repl, js } = programConfig;
   program
     .name("ai")
     .version("0.0.0")
@@ -28,6 +30,10 @@ const createProgram = (programConfig = DEFAULT_PROGRAM_CONFIG) => {
     .command("repl")
     .description("Run a repl with the CS 325 libraries loaded.")
     .action(repl);
+  program
+    .command("js")
+    .description("Run a server with the CS 325 QUnit tests")
+    .action(js);
   return program;
 };
 

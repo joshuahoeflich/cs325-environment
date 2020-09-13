@@ -33,10 +33,13 @@ const SBCLRC = `
 `;
 
 const cloneCourseCode = async () => {
-  await git.clone(
-    process.env.CS325_LISP_REPO,
-    path.join(PACKAGE_ROOT, "quicklisp", "local-projects")
-  );
+  await Promise.all([
+    git.clone(process.env.CS325_JS_REPO, path.join(PACKAGE_ROOT, "js")),
+    git.clone(
+      process.env.CS325_LISP_REPO,
+      path.join(PACKAGE_ROOT, "quicklisp", "local-projects")
+    ),
+  ]);
 };
 
 const configureQuicklisp = async () => {

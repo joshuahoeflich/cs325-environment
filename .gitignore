@@ -3,6 +3,7 @@
 .roswell/*
 quicklisp/*
 js/*
+js
 
 # Created by https://www.toptal.com/developers/gitignore/api/emacs,commonlisp,node,vim,macos,linux,direnv
 # Edit at https://www.toptal.com/developers/gitignore?templates=emacs,commonlisp,node,vim,macos,linux,direnv

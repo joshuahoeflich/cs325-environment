@@ -21,7 +21,7 @@ describe("setup", () => {
     await setup();
     expect(axios.get).not.toHaveBeenCalled();
   });
-  test("Clones the CS395 code", async () => {
+  test("Clones the CS395 lisp code", async () => {
     fs.promises.access.mockImplementationOnce(() => {
       throw new Error("FILE DOES NOT EXIST");
     });
@@ -29,6 +29,16 @@ describe("setup", () => {
     expect(simpleGit.prototype.clone).toHaveBeenCalledWith(
       process.env.CS325_LISP_REPO,
       path.join(PACKAGE_ROOT, "quicklisp", "local-projects")
+    );
+  });
+  test("Clones the CS395 JavaScript code", async () => {
+    fs.promises.access.mockImplementationOnce(() => {
+      throw new Error("FILE DOES NOT EXIST");
+    });
+    await setup();
+    expect(simpleGit.prototype.clone).toHaveBeenCalledWith(
+      process.env.CS325_JS_REPO,
+      path.join(PACKAGE_ROOT, "js")
     );
   });
   test("Downloads quicklisp", async () => {
