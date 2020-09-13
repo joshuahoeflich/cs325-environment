@@ -5,7 +5,6 @@ pkgs.mkShell {
     nodejs-12_x
     git
     sbcl
-    emacs26-nox
   ];
   CS325_LISP_REPO = "https://gitlab.com/criesbeck/cs325.git";
   CS325_JS_REPO = "https://gitlab.com/criesbeck/cs325-js.git";
