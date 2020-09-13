@@ -14,8 +14,19 @@ const existsAsync = async (filePath) => {
   }
 };
 
+const allFilesExist = async () => {
+  const filesExist = new Set(
+    await Promise.all([
+      existsAsync(path.join(PACKAGE_ROOT, "quicklisp")),
+      existsAsync(path.join(PACKAGE_ROOT, "js")),
+    ])
+  );
+  return !filesExist.has(false);
+};
+
 module.exports = {
   PACKAGE_ROOT,
   existsAsync,
+  allFilesExist,
   exec,
 };

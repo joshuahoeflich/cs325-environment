@@ -1,6 +1,6 @@
 const path = require("path");
 const fs = require("fs");
-const { PACKAGE_ROOT, existsAsync } = require("./utils");
+const { allFilesExist, PACKAGE_ROOT, existsAsync } = require("./utils");
 
 fs.promises.access = jest.fn();
 
@@ -25,5 +25,23 @@ describe("existsAsync", () => {
     });
     const result = await existsAsync("/some/file");
     expect(result).toEqual(false);
+  });
+});
+
+describe("allFilesExist", () => {
+  test("Returns true when all the files exist", async () => {
+    fs.promises.access.mockImplementationOnce(() => true);
+    const result = await allFilesExist();
+    expect(result).toBe(true);
+  });
+  test("Returns false if any one of the files does not exist", async () => {
+    fs.promises.access.mockImplementationOnce((arg) => {
+      if (arg === path.join(PACKAGE_ROOT, "quicklisp")) {
+        throw new Error("FILE NOT FOUND EXCEPTION");
+      }
+      return true;
+    });
+    const result = await allFilesExist();
+    expect(result).toBe(false);
   });
 });

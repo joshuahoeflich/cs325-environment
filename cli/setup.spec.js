@@ -107,7 +107,7 @@ describe("setupWhenNeeded", () => {
     const spy = jest.spyOn(console, "log").mockImplementation();
     await setupWhenNeeded();
     expect(spy).toHaveBeenCalledWith(
-      chalk.blue("Quicklisp not found. Initiating setup...")
+      chalk.blue("Required files not found. Initiating setup...")
     );
   });
 });

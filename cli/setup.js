@@ -4,7 +4,7 @@ const axios = require("axios");
 const Git = require("simple-git");
 const ora = require("ora");
 const chalk = require("chalk");
-const { exec, existsAsync, PACKAGE_ROOT } = require("./utils");
+const { exec, existsAsync, allFilesExist, PACKAGE_ROOT } = require("./utils");
 
 const git = new Git();
 
@@ -71,17 +71,17 @@ const setup = async () => {
   const spinner = ora("Beginning setup...").start();
   try {
     await setupLogic();
-    spinner.succeed(chalk.bold.green("Set up successful."));
+    spinner.succeed(chalk.bold.green("Setup successful."));
   } catch (err) {
     spinner.fail(chalk.bold.red("ERROR: ", err));
   }
 };
 
 const setupWhenNeeded = async () => {
-  const fileExists = await existsAsync(path.join(PACKAGE_ROOT, "quicklisp"));
-  if (fileExists) return;
+  const filesExist = await allFilesExist();
+  if (filesExist) return;
   // eslint-disable-next-line no-console
-  console.log(chalk.blue("Quicklisp not found. Initiating setup..."));
+  console.log(chalk.blue("Required files not found. Initiating setup..."));
   await setup();
 };
 
