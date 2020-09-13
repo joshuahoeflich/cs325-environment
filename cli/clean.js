@@ -5,7 +5,10 @@ const fsExtra = require("fs-extra");
 const { PACKAGE_ROOT } = require("./utils");
 
 const cleanLogic = async () => {
-  await fsExtra.remove(path.join(PACKAGE_ROOT, "quicklisp"));
+  await Promise.all([
+    fsExtra.remove(path.join(PACKAGE_ROOT, "quicklisp")),
+    fsExtra.remove(path.join(PACKAGE_ROOT, "js")),
+  ]);
 };
 
 const clean = async () => {

@@ -10,4 +10,8 @@ describe("clean", () => {
       path.join(PACKAGE_ROOT, "quicklisp")
     );
   });
+  test("Removes all installed JavaScript files", async () => {
+    await clean();
+    expect(fsExtra.remove).toHaveBeenCalledWith(path.join(PACKAGE_ROOT, "js"));
+  });
 });

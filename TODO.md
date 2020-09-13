@@ -1,7 +1,7 @@
 - [x] `ai setup`
 - [x] `ai clean`
 - [x] `ai repl`
-- [] `ai js`
+- [x] `ai js`
 - [] `ai critic`
 - [] `ai critic --watch`
 - [] `ai test`
