@@ -11,6 +11,7 @@ const critic = async (filePath) => {
   childProcess.spawnSync(
     "sbcl",
     [
+      "--noinform",
       "--userinit",
       sbclrc,
       "--non-interactive",

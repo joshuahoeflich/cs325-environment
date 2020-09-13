@@ -7,7 +7,11 @@ const repl = async () => {
   await setupWhenNeeded();
   childProcess.spawnSync(
     "sbcl",
-    ["--userinit", path.join(PACKAGE_ROOT, "quicklisp", "sbclrc")],
+    [
+      "--noinform",
+      "--userinit",
+      path.join(PACKAGE_ROOT, "quicklisp", "sbclrc"),
+    ],
     { stdio: "inherit" }
   );
 };

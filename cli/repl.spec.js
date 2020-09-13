@@ -10,7 +10,11 @@ describe("ai Repl command", () => {
     await repl();
     expect(childProcess.spawnSync).toHaveBeenCalledWith(
       "sbcl",
-      ["--userinit", path.join(PACKAGE_ROOT, "quicklisp", "sbclrc")],
+      [
+        "--noinform",
+        "--userinit",
+        path.join(PACKAGE_ROOT, "quicklisp", "sbclrc"),
+      ],
       { stdio: "inherit" }
     );
   });

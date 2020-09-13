@@ -11,6 +11,7 @@ describe("ai critic", () => {
     expect(childProcess.spawnSync).toHaveBeenCalledWith(
       "sbcl",
       [
+        "--noinform",
         "--userinit",
         path.join(PACKAGE_ROOT, "quicklisp", "sbclrc"),
         "--non-interactive",
