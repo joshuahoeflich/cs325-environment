@@ -8,7 +8,7 @@ jest.mock("child_process");
 describe("ai critic", () => {
   test("Calls critique-file on a file specified by the user", async () => {
     await critic("./package.json", { watch: false });
-    expect(childProcess.execSync).toHaveBeenCalledWith(
+    expect(childProcess.spawnSync).toHaveBeenCalledWith(
       "sbcl",
       [
         "--userinit",

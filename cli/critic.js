@@ -8,7 +8,7 @@ const critic = async (filePath) => {
   await setupWhenNeeded();
   const absoluteFilePath = await toAbsolutePath(filePath);
   const sbclrc = path.join(PACKAGE_ROOT, "quicklisp", "sbclrc");
-  childProcess.execSync(
+  childProcess.spawnSync(
     "sbcl",
     [
       "--userinit",
