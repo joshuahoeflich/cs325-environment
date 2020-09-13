@@ -1,6 +1,7 @@
 const path = require("path");
 const childProcess = require("child_process");
-const { critic } = require("./critic");
+const chokidar = require("chokidar");
+const { critic, criticLogic } = require("./critic");
 const { PACKAGE_ROOT } = require("./utils");
 
 jest.mock("child_process");
@@ -20,5 +21,13 @@ describe("ai critic", () => {
       ],
       { stdio: "inherit" }
     );
+  });
+  test("Watches when the watch option is specified", async () => {
+    await critic("./package.json", { watch: true });
+    const absoluteFilePath = path.join(PACKAGE_ROOT, "package.json");
+    expect(chokidar.watch).toHaveBeenCalledWith(absoluteFilePath, {
+      persistent: true,
+    });
+    expect(chokidar.watch().on).toHaveBeenCalledWith("add", criticLogic);
   });
 });
