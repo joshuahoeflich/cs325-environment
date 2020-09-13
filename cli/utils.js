@@ -24,16 +24,9 @@ const allFilesExist = async () => {
   return !filesExist.has(false);
 };
 
-const toAbsolutePath = async (filePath) => {
-  const normalizedPath = path.normalize(filePath);
-  const pathExists = await existsAsync(normalizedPath);
-  return pathExists ? path.resolve(normalizedPath) : null;
-};
-
 module.exports = {
   PACKAGE_ROOT,
   existsAsync,
   allFilesExist,
   exec,
-  toAbsolutePath,
 };

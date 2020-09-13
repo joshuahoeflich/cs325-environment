@@ -1,5 +1,10 @@
 const path = require("path");
-const { PACKAGE_ROOT, toAbsolutePath } = require("./utils");
+const { PACKAGE_ROOT } = require("./utils");
+const toAbsolutePath = require("./toAbsolutePath");
+
+const mockExit = jest.spyOn(process, "exit").mockImplementation(() => {});
+jest.spyOn(console, "error").mockImplementation(() => {});
+jest.spyOn(console, "log").mockImplementation(() => {});
 
 describe("toAbsolutePath", () => {
   test("Works with absolute paths", async () => {
@@ -18,8 +23,8 @@ describe("toAbsolutePath", () => {
     const result = await toAbsolutePath("package.json");
     expect(result).toBe(path.join(PACKAGE_ROOT, "package.json"));
   });
-  test("Works with nonexistant paths", async () => {
-    const result = await toAbsolutePath("___THIS_FILE_DOES_NOT_EXIST____");
-    expect(result).toBe(null);
+  test("Quits with an error code on nonexistant paths", async () => {
+    await toAbsolutePath("___THIS_FILE_DOES_NOT_EXIST____");
+    expect(mockExit).toHaveBeenCalledWith(1);
   });
 });
