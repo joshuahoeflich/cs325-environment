@@ -2,7 +2,12 @@ const path = require("path");
 const fs = require("fs");
 const axios = require("axios");
 const simpleGit = require("simple-git");
-const { setupLogic: setup, QUICKLISP_SETUP } = require("./setup");
+const chalk = require("chalk");
+const {
+  setupWhenNeeded,
+  setupLogic: setup,
+  QUICKLISP_SETUP,
+} = require("./setup");
 const { exec, PACKAGE_ROOT } = require("./utils");
 
 jest.mock("fs");
@@ -63,6 +68,25 @@ describe("setup", () => {
     await setup();
     expect(fs.promises.unlink).toHaveBeenCalledWith(
       path.resolve(PACKAGE_ROOT, "setup.lisp")
+    );
+  });
+});
+
+describe("setupWhenNeeded", () => {
+  test("Does not call setup when Quicklisp exists", async () => {
+    const spy = jest.spyOn(console, "log").mockImplementation();
+    fs.promises.access.mockImplementationOnce(() => true);
+    await setupWhenNeeded();
+    expect(spy).not.toHaveBeenCalled();
+  });
+  test("Calls setup when Quicklisp does not exist", async () => {
+    fs.promises.access.mockImplementationOnce(() => {
+      throw new Error("QUICKLISP MISSING EXCEPTION");
+    });
+    const spy = jest.spyOn(console, "log").mockImplementation();
+    await setupWhenNeeded();
+    expect(spy).toHaveBeenCalledWith(
+      chalk.blue("Quicklisp not found. Initiating setup...")
     );
   });
 });

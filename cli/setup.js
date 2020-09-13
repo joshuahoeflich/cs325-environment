@@ -56,4 +56,12 @@ const setup = async () => {
   }
 };
 
-module.exports = { setup, setupLogic, QUICKLISP_SETUP };
+const setupWhenNeeded = async () => {
+  const fileExists = await existsAsync(path.join(PACKAGE_ROOT, "quicklisp"));
+  if (fileExists) return;
+  // eslint-disable-next-line no-console
+  console.log(chalk.blue("Quicklisp not found. Initiating setup..."));
+  await setup();
+};
+
+module.exports = { setupWhenNeeded, setup, setupLogic, QUICKLISP_SETUP };
