@@ -4,6 +4,6 @@
 - [x] `ai js`
 - [x] `ai critic`
 - [x] `ai critic --watch`
-- [] `ai test`
-- [] `ai test --watch`
+- [x] `ai test`
+- [x] `ai test --watch`
 - [] `ai edit`
