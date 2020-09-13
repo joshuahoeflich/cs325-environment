@@ -10,19 +10,23 @@ Check [the official documentation](https://nixos.org/download.html) for further 
 
 2. Clone this repository onto your machine and `cd` into it.
 
-3. Run:
-
-   nix-shell
+3. Run `nix-shell` in the directory you entered in the last step.
 
 Tada! You're done. Everything is now set up.
 
 ## Commands
 
+If you want to run tests for a particular exercise, create a file named `$EXERCISE_NAME.lisp` and run `ai test $EXAMPLE_NAME.lisp` in your terminal. If you want to run the tests in watch mode,
+
+    ai test $EXAMPLE.lisp --watch
+
+Should do the trick.
+
 If you want to run the code critic on a bit of common lisp, do:
 
     ai critic $FILE_NAME
 
-Where `$FILE_NAME` is the name of the file with the code you're working on. If you want the critic to give you feedback every time you change the file, do:
+Where `$FILE_NAME` is the name of the file with the code you're working on. If you want the critic to give you feedback every time you change that file, do:
 
     ai critic $FILE_NAME --watch
 
@@ -30,13 +34,7 @@ If you want to get a common lisp REPL with all of the packages associated with t
 
     ai repl
 
-From here, you can poke around the code that's available to you.
-
-Want an IDE that's ready to rock-and-roll out of the box? No problem! Just run:
-
-    ai edit
-
-This will spawn an instance of Emacs in your terminal which is pre-configured to play nicely with Slime.
+From here, you can poke around the code to your hearts content.
 
 Finally, to bootstrap the project without doing anything else, run:
 
