@@ -5,6 +5,7 @@ pkgs.mkShell {
     nodejs-12_x
     git
     sbcl
+    emacs26-nox
   ];
   CS325_LISP_REPO = "https://gitlab.com/criesbeck/cs325.git";
   QUICKLISP_URL = "https://beta.quicklisp.org/quicklisp.lisp";

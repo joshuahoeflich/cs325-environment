@@ -1,0 +1,8 @@
+- [x] `ai setup`
+- [x] `ai clean`
+- [x] `ai repl`
+- [] `ai critic`
+- [] `ai critic --watch`
+- [] `ai test`
+- [] `ai test --watch`
+- [] `ai edit`
