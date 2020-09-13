@@ -5,12 +5,13 @@ const toAbsolutePath = require("./toAbsolutePath");
 const { runOnFileChange } = require("./runOnFileChange");
 const { PACKAGE_ROOT } = require("./utils");
 
-const getTestSnippet = (absolutePath) => {
-  const basename = path.basename(absolutePath);
-  return `
-  (load "${absolutePath}")
-  (run-test ${basename})
-  `;
+const getTestSnippets = (absolutePath) => {
+  return [
+    "--eval",
+    `(load "${absolutePath}")`,
+    "--eval",
+    `(run-tests ${path.basename(absolutePath, ".lisp")})`,
+  ];
 };
 
 const unitTestLogic = (absolutePath) => {
@@ -22,8 +23,7 @@ const unitTestLogic = (absolutePath) => {
       "--userinit",
       sbclrc,
       "--non-interactive",
-      "--eval",
-      getTestSnippet(absolutePath),
+      ...getTestSnippets(absolutePath),
     ],
     { stdio: "inherit" }
   );
@@ -42,5 +42,5 @@ const unitTest = async (filePath, { watch }) => {
 module.exports = {
   unitTest,
   unitTestLogic,
-  getTestSnippet,
+  getTestSnippets,
 };

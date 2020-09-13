@@ -1,10 +1,22 @@
 const path = require("path");
 const childProcess = require("child_process");
 const chokidar = require("chokidar");
-const { unitTest, unitTestLogic, getTestSnippet } = require("./unitTest");
+const { unitTest, unitTestLogic, getTestSnippets } = require("./unitTest");
 const { PACKAGE_ROOT } = require("./utils");
 
 jest.mock("child_process");
+
+describe("getTestSnippets", () => {
+  test("Returns an array that will execute a unit test via eval", () => {
+    const absolutePath = path.resolve(PACKAGE_ROOT, "package.json");
+    expect(getTestSnippets(absolutePath)).toEqual([
+      "--eval",
+      `(load "${absolutePath}")`,
+      "--eval",
+      `(run-tests ${path.basename(absolutePath, ".lisp")})`,
+    ]);
+  });
+});
 
 describe("ai test", () => {
   test("Unit tests with a file specified by the user", async () => {
@@ -16,8 +28,7 @@ describe("ai test", () => {
         "--userinit",
         path.join(PACKAGE_ROOT, "quicklisp", "sbclrc"),
         "--non-interactive",
-        "--eval",
-        getTestSnippet(path.join(PACKAGE_ROOT, "package.json")),
+        ...getTestSnippets(path.join(PACKAGE_ROOT, "package.json")),
       ],
       { stdio: "inherit" }
     );
