@@ -3,7 +3,7 @@
 - [x] `ai repl`
 - [x] `ai js`
 - [x] `ai critic`
-- [] `ai critic --watch`
+- [x] `ai critic --watch`
 - [] `ai test`
 - [] `ai test --watch`
 - [] `ai edit`
