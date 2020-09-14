@@ -1,6 +1,6 @@
 # CS 325 Environment
 
-This code automatically sets up the environment for CS 325 for Linux and Mac OS users using [nix](https://nixos.org/), a purely functional package manager with an emphasis on reproducibility. It uses `sbcl` to handle common lisp. Windows isn't supported yet, at least not officially; it _might_ be possible to get everything working using the [https://docs.microsoft.com/en-us/windows/wsl/install-win10](Windows Subsystem for Linux), but further testing is required.
+This code automatically sets up the environment for CS 325 for Linux and Mac OS users using [nix](https://nixos.org/), a purely functional package manager with an emphasis on reproducibility. It uses `sbcl` to handle common lisp. Windows isn't supported yet, at least not officially; it _might_ be possible to get everything working using the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10), but further testing is required.
 
 Whether you use nix for everything already or you simply want to try something new and interesting, these instructions are for you. Here are the three steps:
 
