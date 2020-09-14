@@ -44,4 +44,4 @@ Finally, to bootstrap this project without doing anything else, run:
 
 Running this is generally unnecessary, as the other commands should be smart enough to run it themselves when you don't have a working installation. If you tinker with the files in the `quicklisp` folder, however, and you want to get back to a known good state, `ai clean && ai setup` should do the trick.
 
-Additional features may be coming soon™; a roadmap exists in the file `TODO.md`. Pull requests are welcome. If you have any questions or concerns, feel free to reach out to me on Piazza or submit an issue right here on GitHub. Thank you very much!
+Additional features might be coming soon; a roadmap exists in the file `TODO.md`. Pull requests are welcome. If you have any questions or concerns, feel free to reach out to me on Piazza or submit an issue right here on GitHub. Thank you very much!
