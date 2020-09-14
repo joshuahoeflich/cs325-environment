@@ -1,6 +1,6 @@
 # CS 325 Environment
 
-This code automatically sets up an environment for CS 325 for Linux, Mac OS, and Windows users using [nix](https://nixos.org/), a purely functional package manager with an emphasis on reproducibility. It uses `sbcl` to handle common lisp and `nodejs` to handle the CLI, but you don't need to worry about that; nix will fetch those dependencies for you. 
+This code automatically sets up an environment for CS 325 for Linux, Mac OS, and Windows users using [nix](https://nixos.org/), a purely functional package manager with an emphasis on reproducibility. It uses `sbcl` to handle common lisp and `nodejs` to handle the CLI, but you don't need to worry about that; `nix` will fetch those dependencies for you. 
 
 Whether you want to try something new and interesting or you use `nix` for everything already, these instructions are for you. Here are the three steps:
 
