@@ -6,7 +6,7 @@
   "main": "cli/ai",
   "scripts": {
     "test": "jest",
-    "test-tests": "sh test-tests.sh",
+    "test:tests": "sh test-tests.sh",
     "test:watch": "jest --watch"
   },
   "husky": {
