@@ -1,16 +1,16 @@
 # CS 325 Environment
 
-This code automatically sets up an environment for CS 325 for Linux, Mac OS, and Windows users using [nix](https://nixos.org/), a purely functional package manager with an emphasis on reproducibility. It uses `sbcl` to handle common lisp and `nodejs` to handle the CLI, but **you don't need to install those programs beforehand**; `nix` will fetch the dependencies for you. 
+This code automatically sets up an environment for CS 325 for Linux, Mac OS, and Windows users using [nix](https://nixos.org/), a purely functional package manager with an emphasis on reproducibility. It uses `sbcl` to handle common lisp and `nodejs` to handle the CLI, but **you don't need to install those programs beforehand**; `nix` will fetch the dependencies for you.
 
 ## Setup
 
 1. Install `nix` onto your machine:
 
    `curl -L https://nixos.org/nix/install | sh`
-   
-If you use Windows, you'll have to set up the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10#update-to-wsl-2) and run the command in the Linux distribution of your choice. If you're new to Unix, I'd reccomend Ubuntu. Mac OS and Linux users can use their native terminal emulators. 
 
-Running that `curl` command as a user who is *not* root should configure everything without issue. If you run into problems, consult [the official Nix documentation](https://nixos.org/download.html) for further instructions, and feel free to reach out to me on Piazza for help.
+If you use Windows, you'll have to set up the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10#update-to-wsl-2) and run the command in the Linux distribution of your choice. If you're new to Unix, I'd reccomend Ubuntu. Mac OS and Linux users can use their native terminal emulators.
+
+Running that `curl` command as a user who is _not_ root should configure everything without issue. If you run into problems, consult [the official Nix documentation](https://nixos.org/download.html) for further instructions, and feel free to reach out to me on Piazza for help.
 
 2. Clone this repository onto your machine and `cd` into it.
 
@@ -39,6 +39,14 @@ If you want to run the code critic on a bit of common lisp, do:
 Where `$FILE_NAME` is the name of the file with the code you're working on. If you want the critic to give you feedback every time you change that file, do:
 
     ai critic $FILE_NAME --watch
+
+If you just want to run a little bit of Lisp with the code from the course loaded, do:
+
+    ai run $FILE_NAME
+
+Where `$FILE_NAME` is the name of the file with the code you're working on. If you want to re-run the Lisp code every time you change the file, do:
+
+    ai run $FILE_NAME --watch
 
 If you want to get a common lisp REPL with all of the packages associated with the course, run:
 

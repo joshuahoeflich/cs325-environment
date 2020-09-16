@@ -7,6 +7,7 @@ const { repl: aiRepl } = require("./repl");
 const { js: aiJs } = require("./js");
 const { critic: aiCritic } = require("./critic");
 const { unitTest } = require("./unitTest");
+const { runLisp } = require("./runLisp");
 
 const DEFAULT_PROGRAM_CONFIG = {
   setup: quicklispSetup,
@@ -15,11 +16,12 @@ const DEFAULT_PROGRAM_CONFIG = {
   js: aiJs,
   critic: aiCritic,
   test: unitTest,
+  run: runLisp,
 };
 
 const createProgram = (programConfig = DEFAULT_PROGRAM_CONFIG) => {
   const program = new Command();
-  const { setup, clean, repl, js, critic, test } = programConfig;
+  const { setup, clean, repl, js, critic, test, run } = programConfig;
   program
     .name("ai")
     .version("0.0.0")
@@ -48,6 +50,11 @@ const createProgram = (programConfig = DEFAULT_PROGRAM_CONFIG) => {
     .description("Unit test the exercise in the provided file.")
     .option("-w, --watch", "Watch for changes.", false)
     .action(test);
+  program
+    .command("run <file>")
+    .description("Run a bit of Lisp code with the CS325 library.")
+    .option("-w, --watch", "Watch for changes.", false)
+    .action(run);
   return program;
 };
 

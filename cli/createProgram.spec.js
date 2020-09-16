@@ -139,4 +139,24 @@ describe("Calling cli setup", () => {
     expect(firstCall[0]).toEqual("potato");
     expect(firstCall[1].watch).toBe(true);
   });
+  test("Runs the provided run function", async () => {
+    const mockRun = jest.fn();
+    const program = createProgram({
+      run: mockRun,
+    });
+    await program.parseAsync(["", "", "run", "potato"]);
+    const firstCall = mockRun.mock.calls[0];
+    expect(firstCall[0]).toEqual("potato");
+    expect(firstCall[1].watch).toBe(false);
+  });
+  test("Watches the provided run function when asked", async () => {
+    const mockRun = jest.fn();
+    const program = createProgram({
+      run: mockRun,
+    });
+    await program.parseAsync(["", "", "run", "potato", "--watch"]);
+    const firstCall = mockRun.mock.calls[0];
+    expect(firstCall[0]).toEqual("potato");
+    expect(firstCall[1].watch).toBe(true);
+  });
 });
