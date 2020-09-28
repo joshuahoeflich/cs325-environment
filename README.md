@@ -10,7 +10,13 @@ This code automatically sets up an environment for CS 325 for Linux, Mac OS, and
 
 If you use Windows, you'll have to set up the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10#update-to-wsl-2) and run the command in the Linux distribution of your choice. If you're new to Unix, I'd reccomend Ubuntu. Mac OS and Linux users can use their native terminal emulators.
 
-Running that `curl` command as a user who is _not_ root should configure everything without issue. If you run into problems, consult [the official Nix documentation](https://nixos.org/download.html) for further instructions, and feel free to reach out to me on Piazza for help.
+If you're on MacOS, you may need to use the following workaround:
+
+    `sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume`
+    
+Additional information about the nature of this workaround [can be found here](https://nixos.org/manual/nix/stable/#sect-macos-installation).
+
+If you run into problems, consult [the official Nix documentation](https://nixos.org/download.html) for further instructions, and feel free to reach out to me on Piazza for help.
 
 2. Clone this repository onto your machine and `cd` into it.
 
